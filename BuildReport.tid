@@ -1,0 +1,342 @@
+caption: Build Report
+tags: 
+title: $:/plugins/OokTech/ExpenseReports/BuildReport
+type: text/vnd.tiddlywiki
+
+\define END() ]]
+
+\define thisSelectPaymentMethod()
+<!--
+  This macro builds the select widget used to select the payment method used
+  on the expense report.
+  If you select a method than only expense items that were paid for using that
+  are displayed, if you leave this blank than all methods are shown.
+-->
+<$select
+  tiddler='$:/temp/ExpenseReports/NewReport'
+  field=payment_method
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/PaymentMethods]indexes[]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+\define thisSelectCategory()
+<!--
+  This macro builds the select widget used to select the category of expenses
+  shown on the expense report.
+  If you select a category than only expense items that are in that category
+  are displayed, if you leave this blank than all categories are shown.
+-->
+<$select
+  tiddler='$:/temp/ExpenseReports/NewReport'
+  field=category
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/Categories]indexes[]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+\define thisSelectPerson()
+<!--
+  This macro builds the select widget used to select the person who paid for
+  the expenses.
+  If you select a person than only expense items that were paid for by that
+  person are displayed, if you leave this blank than expenses from everyone are
+  shown.
+-->
+<$select
+  tiddler='$:/temp/ExpenseReports/NewReport'
+  field=person
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/People]indexes[]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+\define thisSelectProject()
+<!--
+  This macro builds the select widget used to select the project the expense
+  report covers.
+  If you select a project than only expense items that are part of that project
+  are displayed, if you leave this blank than expenses from all projects are
+  shown.
+-->
+<$select
+  tiddler='$:/temp/ExpenseReports/NewReport'
+  field=project
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/Projects]indexes[]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+<!--
+  This table is where all the configuration options go.
+-->
+<table
+  style='width:100%;'
+>
+  <tr>
+    <th>
+      Date Start
+    </th>
+    <td>
+      <!--
+        This vars widget is here to force the date picker to refresh when the
+        field is cleared using the button.
+      -->
+      <$vars
+        dummy={{$:/temp/ExpenseReports/NewReport!!date_from}}
+      >
+        <$edit-date
+          tiddler='$:/temp/ExpenseReports/NewReport'
+          field='date_from'
+        />
+      </$vars>
+      <$button
+        class='tc-btn-invisible'
+        tooltip='Clear Date'
+      >
+        {{$:/core/images/cancel-button}}
+        <$action-setfield
+          $tiddler='$:/temp/ExpenseReports/NewReport'
+          date_from=''
+        />
+      </$button>
+    </td>
+    <th>
+      Date End
+    </th>
+    <td>
+      <!--
+        This vars widget is here to force the date picker to refresh when the
+        field is cleared using the button.
+      -->
+      <$vars
+        dummy={{$:/temp/ExpenseReports/NewReport!!date_to}}
+      >
+        <$edit-date
+          tiddler='$:/temp/ExpenseReports/NewReport'
+          field='date_to'
+        />
+      </$vars>
+      <$button
+        class='tc-btn-invisible'
+        tooltip='Clear Date'
+      >
+        {{$:/core/images/cancel-button}}
+        <$action-setfield
+          $tiddler='$:/temp/ExpenseReports/NewReport'
+          date_to=''
+        />
+      </$button>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Person
+    </th>
+    <td>
+      <<thisSelectPerson>>
+    </td>
+    <th>
+      Category
+    </th>
+    <td>
+      <<thisSelectCategory>>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Payment Method
+    </th>
+    <td>
+      <<thisSelectPaymentMethod>>
+    </td>
+    <th>
+      Project
+    </th>
+    <td>
+      <<thisSelectProject>>
+    </td>
+  </tr>
+</table>
+
+<!--
+  This lets you select which report template you want to use.
+-->
+Template:
+<$select
+  tiddler='$:/temp/ExpenseReports/NewReport'
+  field='report_template'
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/ReportTemplates]indexes[]]'
+  >
+    <option
+      value=<<currentTiddler>>
+    >
+      <$view
+        tiddler='$:/data/ExpenseReports/ReportTemplates'
+        index=<<currentTiddler>>
+      >
+        <$view
+          field='title'
+        />
+      </$view>
+    </option>
+  </$list>
+</$select>
+
+<!--
+  This sequence of set widgets builds the filter used to determine which items
+  get listed on the report.
+  Each set widget uses a filter to determine if an option has been selected and
+  if so it appends the correct filter component to the FILTER variable.
+  If no option was selected it just passes the FILTER variable through
+  unmodified.
+  This is needed to allow blank options, otherwise there would have to be a
+  default value added to every option and not all have reasonable defaults,
+  there isn't another way to have not select a person mean 'all people'.
+-->
+<$set
+  name=FILTER
+  value='[tag[expense]sort[date]]'
+  select='0'
+>
+  <$set
+    filter='[[$:/temp/ExpenseReports/NewReport]has[date_from]get[date_from]addprefix[+[greaterthan:date[]addsuffix<END>addprefix<FILTER>]'
+    name=FILTER
+    emptyValue=<<FILTER>>
+    select='0'
+  >
+    <$set
+      filter='[[$:/temp/ExpenseReports/NewReport]has[date_from]get[date_to]addprefix[+[lessthan:date[]addsuffix<END>addprefix<FILTER>]'
+      name=FILTER
+      emptyValue=<<FILTER>>
+      select='0'
+    >
+      <$set
+        filter='[[$:/temp/ExpenseReports/NewReport]has[person]get[person]addprefix[+[person[]addsuffix<END>addprefix<FILTER>]'
+        name=FILTER
+        emptyValue=<<FILTER>>
+        select='0'
+      >
+        <$set
+          filter='[[$:/temp/ExpenseReports/NewReport]has[category]get[category]addprefix[+[category[]addsuffix<END>addprefix<FILTER>]'
+          name=FILTER
+          emptyValue=<<FILTER>>
+          select='0'
+        >
+          <$set
+            filter='[[$:/temp/ExpenseReports/NewReport]has[payment_method]get[payment_method]addprefix[+[payment_method[]addsuffix<END>addprefix<FILTER>]'
+            name=FILTER
+            emptyValue=<<FILTER>>
+            select='0'
+          >
+            <$set
+              filter='[[$:/temp/ExpenseReports/NewReport]has[project]get[project]addprefix[+[project[]addsuffix<END>addprefix<FILTER>]'
+              name=FILTER
+              emptyValue=<<FILTER>>
+              select='0'
+            >
+              <!--
+                This set widget checks to see if a template has been selected.
+                If you haven't selected a template than it sets the template to
+                the default value.
+              -->
+              <$set
+                filter='[[$:/temp/ExpenseReports/NewReport]has[report_template]get[report_template]]'
+                emptyValue='$:/plugins/OokTech/ExpenseReports/templates/SimpleReportTemplate'
+                name=ReportTemplate
+              >
+                <$wikify
+                  name=ReportContent
+                  text="<$transclude tiddler=<<ReportTemplate>>/>"
+                  output=html
+                >
+                  <!--
+                    This displays the template using the filter defined in FILTER
+                  -->
+                  <<ReportContent>>
+                  <!--
+                    This button creates a static version of the current report
+                    and saves it as its own tiddler.
+                  -->
+                  <$button>
+                    Save Report
+                      <$action-setfield
+                        $tiddler=TestOutput
+                        text=<<ReportContent>>
+                      />
+                  </$button>
+                </$wikify>
+              </$set>
+              <!--
+                This button updates the totals on the template.
+                This may need to be updated later if we add any templates that
+                include sub-totals or anything more complex than a straight
+                total value.
+              -->
+              <$button>
+                Update Total
+                <$action-sumfield
+                  $tiddler='$:/data/CurrentTotal'
+                  $filter=<<FILTER>>
+                  $sumfield='amount'
+                  $storefield=total
+                />
+              </$button>
+            </$set>
+          </$set>
+        </$set>
+      </$set>
+    </$set>
+  </$set>
+</$set>

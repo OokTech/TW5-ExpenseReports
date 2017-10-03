@@ -1,0 +1,26 @@
+caption: Projects
+tags: [[Expense Report Settings]]
+title: $:/plugins/OokTech/ExpenseReports/Settings/Projects
+type: text/vnd.tiddlywiki
+
+Projects:
+
+<<CheckList filter:"[[$:/data/ExpenseReports/Projects]indexes[]]" listTiddler:"$:/settings/global" listField:"projects">>
+
+Add Project:
+<$edit-text
+  tiddler='$:/temp/ExpenseReports/NewProject'
+  field='project_name'
+/>
+<$button>
+  Add
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/Projects'
+    $index={{$:/temp/ExpenseReports/NewProject!!project_name}}
+    $value='true'
+  />
+  <$action-setfield
+    $tiddler='$:/temp/ExpenseReports/NewProject'
+    project_name=''
+  />
+</$button>

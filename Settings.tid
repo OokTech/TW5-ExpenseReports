@@ -1,0 +1,10 @@
+caption: Settings
+tags:
+title: $:/plugins/OokTech/ExpenseReports/Settings
+type: text/vnd.tiddlywiki
+
+Company Name: <$edit-text tiddler='$:/settings/global' field='company_name' class=tc-edit-texteditor/>
+
+Below here you can set what appears in the different menus when adding a new expense item. In each tab checked items will be in the corresponding menu. You can add new items using the dialog at the bottom of each tab.
+
+<<tabs "[plugintiddlers[]tag[Expense Report Settings]]">>

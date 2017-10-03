@@ -1,0 +1,26 @@
+caption: Payment Methods
+tags: [[Expense Report Settings]]
+title: $:/plugins/OokTech/ExpenseReports/Settings/PaymentMethods
+type: text/vnd.tiddlywiki
+
+Payment Methods:
+
+<<CheckList filter:"[[$:/data/ExpenseReports/PaymentMethods]indexes[]]" listTiddler:"$:/settings/global" listField:"payment_methods">>
+
+Add Payment Method:
+<$edit-text
+  tiddler='$:/temp/ExpenseReports/NewPaymentMethod'
+  field='method_name'
+/>
+<$button>
+  Add
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/PaymentMethods'
+    $index={{$:/temp/ExpenseReports/NewPaymentMethod!!method_name}}
+    $value='true'
+  />
+  <$action-setfield
+    $tiddler='$:/temp/ExpenseReports/NewPaymentMethod'
+    method_name=''
+  />
+</$button>

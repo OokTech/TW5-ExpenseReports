@@ -1,0 +1,64 @@
+tags: template
+title: $:/plugins/OokTech/ExpenseReports/templates/ItemTemplate
+type: text/vnd.tiddlywiki
+
+<table
+  style='width:100%;'
+>
+  <tr>
+    <th>
+      Item Name
+    </th>
+    <td>
+      {{!!item_name}}
+    </td>
+    <th>
+      Date
+    </th>
+    <td>
+      <$view
+        field='date'
+        format='date'
+        template='DDth mmm YYYY'
+      />
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Category
+    </th>
+    <td>
+      {{!!category}}
+    </td>
+    <th>
+      Person
+    </th>
+    <td>
+      {{!!person}}
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Payment Method
+    </th>
+    <td>
+      {{!!payment_method}}
+    </td>
+    <th>
+      Project
+    </th>
+    <td>
+      {{!!project}}
+    </td>
+  </tr>
+</table>
+
+''Amount:'' {{!!currency_unit}}{{!!amount}}
+
+<br>
+
+''Description:''
+
+<br>
+
+{{!!text}}

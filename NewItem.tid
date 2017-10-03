@@ -1,0 +1,212 @@
+caption: New Item
+tags:
+title: $:/plugins/OokTech/ExpenseReports/NewItem
+type: text/vnd.tiddlywiki
+
+\define thisItemTitle() $:/expense/$(PERSON)$/$(CATEGORY)$/$(NAME)$ - $(DATE)$
+
+\define thisSelectPaymentMethod()
+<$select
+  tiddler='$:/temp/ExpenseReports/NewItem'
+  field=payment_method
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[list[$:/settings/global!!payment_methods]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+\define thisSelectCategory()
+<$select
+  tiddler='$:/temp/ExpenseReports/NewItem'
+  field=category
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[list[$:/settings/global!!categories]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+\define thisSelectPerson()
+<$select
+  tiddler='$:/temp/ExpenseReports/NewItem'
+  field=person
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[list[$:/settings/global!!people]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+\define thisSelectProject()
+<$select
+  tiddler='$:/temp/ExpenseReports/NewItem'
+  field=project
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[list[$:/settings/global!!projects]]'
+  >
+    <option>
+      <<currentTiddler>>
+    </option>
+  </$list>
+</$select>
+\end
+
+<table>
+  <tr>
+    <th>
+      Item Name
+    </th>
+    <td>
+      <$edit-text
+        tiddler='$:/temp/ExpenseReports/NewItem'
+        field='item_name'
+        placeholder='Item Name'
+        class='tc-edit-texteditor'
+      />
+    </td>
+    <th>
+      Date
+    </th>
+    <td>
+      <$edit-date
+        tiddler='$:/temp/ExpenseReports/NewItem'
+        field='date'
+      />
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Category
+    </th>
+    <td>
+      <<thisSelectCategory>>
+    </td>
+    <th>
+      Person
+    </th>
+    <td>
+      <<thisSelectPerson>>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Payment Method
+    </th>
+    <td>
+      <<thisSelectPaymentMethod>>
+    </td>
+    <th>
+      Project
+    </th>
+    <td>
+      <<thisSelectProject>>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Amount
+    </th>
+    <td>
+      <$edit-text
+        tiddler='$:/temp/ExpenseReports/NewItem'
+        field='amount'
+        class='tc-edit-texteditor'
+      />
+    </td>
+    <th>
+      Unit
+    </th>
+    <td>
+      <$select
+        tiddler='$:/temp/ExpenseReports/NewItem'
+        field='currency_unit'
+      >
+        <option
+          value=''
+        >
+          --
+        </option>
+        <$list
+          filter='[list[$:/settings/global!!currency_units]]'
+        >
+          <option>
+            <<currentTiddler>>
+          </option>
+        </$list>
+        <!--
+        <option>
+          $
+        </option>
+        <option>
+          €
+        </option>
+        -->
+      </$select>
+    </td>
+  </tr>
+</table>
+
+Description:
+
+<$edit-text
+  tiddler='$:/temp/ExpenseReports/NewItem'
+  class='tc-edit-texteditor'
+/>
+
+<$vars
+  PERSON={{$:/temp/ExpenseReports/NewItem!!person}}
+  CATEGORY={{$:/temp/ExpenseReports/NewItem!!category}}
+  NAME={{$:/temp/ExpenseReports/NewItem!!item_name}}
+  DATE={{$:/temp/ExpenseReports/NewItem!!date}}
+>
+  <$button>
+    Save Item
+    <$action-setfield
+      $tiddler="$:/temp/ExpenseReports/NewItem"
+      title=<<thisItemTitle>>
+    />
+    <$action-setfield
+      $tiddler=<<thisItemTitle>>
+      tags=expense
+    />
+    <$action-setfield
+      $tiddler="$:/temp/ExpenseReports/NewItem"
+      text=""
+      item_name=""
+    />
+  </$button>
+</$vars>

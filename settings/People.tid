@@ -1,0 +1,26 @@
+caption: People
+tags: [[Expense Report Settings]]
+title: $:/plugins/OokTech/ExpenseReports/Settings/People
+type: text/vnd.tiddlywiki
+
+People:
+
+<<CheckList filter:"[[$:/data/ExpenseReports/People]indexes[]]" listTiddler:"$:/settings/global" listField:"people">>
+
+Add People:
+<$edit-text
+  tiddler='$:/temp/ExpenseReports/NewPerson'
+  field='person_name'
+/>
+<$button>
+  Add
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/People'
+    $index={{$:/temp/ExpenseReports/NewPerson!!person_name}}
+    $value='true'
+  />
+  <$action-setfield
+    $tiddler='$:/temp/ExpenseReports/NewPerson'
+    person_name=''
+  />
+</$button>

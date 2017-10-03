@@ -1,0 +1,73 @@
+tags: 
+title: $:/plugins/OokTech/ExpenseReports/templates/SimpleReportTemplate
+type: text/vnd.tiddlywiki
+
+<h1>
+  <$view
+    tiddler='$:/settings/global'
+    field='company_name'
+  />
+  Expense Report
+</h1>
+
+<hr>
+
+<table
+  style='width:100%;text-align:left;border:none;'
+>
+  <tr>
+    <th>
+      __Name__: <$view tiddler='$:/temp/ExpenseReports/NewReport' field='person'/>
+    </th>
+    <th>
+      __Start Date__: <$view tiddler='$:/temp/ExpenseReports/NewReport' field=date_from format=date template='MM/0DD/YYYY'/>
+    </th>
+    <th>
+      __End Date__: <$view tiddler='$:/temp/ExpenseReports/NewReport' field=date_to format=date template='MM/0DD/YYYY'/>
+    </th>
+  </tr>
+  <tr>
+    <th>
+      __Project__: <$view tiddler='$:/temp/ExpenseReports/NewReport' field='project'/>
+    </th>
+    <th>
+      __Category__: <$view tiddler='$:/temp/ExpenseReports/NewReport' field='category'/>
+    </th>
+    <th>
+    </th>
+  </tr>
+</table>
+<table
+  style='width:100%;'
+>
+  <tr>
+    <th>
+      Date
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Category
+    </th>
+    <th>
+      Amount
+    </th>
+  </tr>
+  <$list
+    filter=<<FILTER>>
+    template='$:/plugins/OokTech/ExpenseReports/templates/ReportEntryTemplate'
+  />
+  <tr>
+    <th>
+      Total
+    </th>
+    <th>
+    </th>
+    <th>
+    </th>
+    <td>
+      {{!!monetary_unit}}{{$:/data/CurrentTotal!!total}}
+    </td>
+  </tr>
+</table>

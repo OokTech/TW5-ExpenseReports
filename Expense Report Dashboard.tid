@@ -1,0 +1,9 @@
+created: 20171002110543208
+modified: 20171003142126607
+tags: 
+title: Expense Report Dashboard
+type: text/vnd.tiddlywiki
+
+This is the central interface for the for Expense Reports system.
+
+<<tabs "[[$:/plugins/OokTech/ExpenseReports/NewItem]][[$:/plugins/OokTech/ExpenseReports/ViewItems]][[$:/plugins/OokTech/ExpenseReports/BuildReport]][[$:/plugins/OokTech/ExpenseReports/Settings]]" "[[$:/plugins/OokTech/ExpenseReports/NewItem]]">>

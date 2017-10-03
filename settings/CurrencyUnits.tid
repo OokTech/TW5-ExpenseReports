@@ -1,0 +1,26 @@
+caption: Currency Units
+tags: [[Expense Report Settings]]
+title: $:/plugins/OokTech/ExpenseReports/Settings/CurrencyUnits
+type: text/vnd.tiddlywiki
+
+Currency Units:
+
+<<CheckList filter:"[[$:/data/ExpenseReports/CurrencyUnits]indexes[]]" listTiddler:"$:/settings/global" listField:"currency_units">>
+
+Add Currency:
+<$edit-text
+  tiddler='$:/temp/ExpenseReports/NewCurrency'
+  field='currency_name'
+/>
+<$button>
+  Add
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/CurrencyUnits'
+    $index={{$:/temp/ExpenseReports/NewCurrency!!currency_name}}
+    $value='true'
+  />
+  <$action-setfield
+    $tiddler='$:/temp/ExpenseReports/NewCurrency'
+    currency_name=''
+  />
+</$button>

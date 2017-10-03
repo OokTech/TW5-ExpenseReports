@@ -1,0 +1,26 @@
+caption: Expense Categories
+tags: [[Expense Report Settings]]
+title: $:/plugins/OokTech/ExpenseReports/Settings/ExpenseCategories
+type: text/vnd.tiddlywiki
+
+Expense Categories:
+
+<<CheckList filter:"[[$:/data/ExpenseReports/Categories]indexes[]]" listTiddler:"$:/settings/global" listField:"categories">>
+
+Add Category:
+<$edit-text
+  tiddler='$:/temp/ExpenseReports/NewCategory'
+  field='category_name'
+/>
+<$button>
+  Add
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/Categories'
+    $index={{$:/temp/ExpenseReports/NewCategory!!category_name}}
+    $value='true'
+  />
+  <$action-setfield
+    $tiddler='$:/temp/ExpenseReports/NewCategory'
+    category_name=''
+  />
+</$button>

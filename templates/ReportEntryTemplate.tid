@@ -1,0 +1,26 @@
+tags: 
+title: $:/plugins/OokTech/ExpenseReports/templates/ReportEntryTemplate
+type: text/vnd.tiddlywiki
+
+<tr>
+  <td>
+    <$view
+      field='date'
+      format=date
+      template='MM/0DD/YYYY'
+    />
+  </td>
+  <td>
+    <$view
+      field='item_name'
+    />
+  </td>
+  <td>
+    <$view
+      field='category'
+    />
+  </td>
+  <td>
+    {{!!currency_unit}}{{!!amount}}
+  </td>
+</tr>

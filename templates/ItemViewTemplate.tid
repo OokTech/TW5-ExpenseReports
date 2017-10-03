@@ -1,0 +1,7 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/OokTech/ExpenseReports/ViewTemplates/ItemViewTemplate
+type: text/vnd.tiddlywiki
+
+<$list filter='[is[current]tag[expense]]'>
+{{||$:/plugin/OokTech/ExpenseReports/templates/ItemTemplate}}
+</$list>

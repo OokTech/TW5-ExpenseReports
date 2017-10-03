@@ -1,0 +1,32 @@
+caption: View Items
+tags: 
+title: $:/plugins/OokTech/ExpenseReports/ViewItems
+type: text/vnd.tiddlywiki
+
+<$select
+  tiddler='$:/temp/ExpenseReports'
+  field='selected_item'
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[tag[expense]]'
+  >
+    <option
+      value=<<currentTiddler>>
+    >
+      {{!!item_name}} - {{!!date}}
+    </option>
+  </$list>
+</$select>
+
+---
+
+<$tiddler
+  tiddler={{$:/temp/ExpenseReports!!selected_item}}
+>
+  {{||$:/plugins/OokTech/ExpenseReports/templates/ItemTemplate}}
+</$tiddler>

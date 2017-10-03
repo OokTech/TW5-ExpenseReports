@@ -1,0 +1,10 @@
+{
+	"title": "$:/plugins/OokTech/ExpenseReports",
+	"description": "A plugin to track expenses using TiddlyWiki",
+	"author": "OokTech",
+	"version": "0.0.1",
+	"core-version": ">=5.1.13",
+	"source": "",
+	"list": "[[$:/plugins/OokTech/ExpenseReports/ReadMe]]",
+	"plugin-type": "plugin"
+}
