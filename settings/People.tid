@@ -24,3 +24,30 @@ Add People:
     person_name=''
   />
 </$button>
+
+<$select
+  tiddler='$:/temp/ExpenseReports/NewPerson'
+  field='remove_person'
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/People]indexes[]]'
+  >
+    <option>
+      <$view
+        field='title'
+      />
+    </option>
+  </$list>
+</$select>
+<$button>
+  Remove Person
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/People'
+    $index={{$:/temp/ExpenseReports/NewPerson!!remove_person}}
+  />
+</$button>

@@ -24,3 +24,30 @@ Add Currency:
     currency_name=''
   />
 </$button>
+
+<$select
+  tiddler='$:/temp/ExpenseReports/NewCurrency'
+  field='remove_currency'
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/CurrencyUnits]indexes[]]'
+  >
+    <option>
+      <$view
+        field='title'
+      />
+    </option>
+  </$list>
+</$select>
+<$button>
+  Remove Currency
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/CurrencyUnits'
+    $index={{$:/temp/ExpenseReports/NewCurrency!!remove_currency}}
+  />
+</$button>

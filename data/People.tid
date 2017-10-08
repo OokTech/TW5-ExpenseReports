@@ -1,0 +1,6 @@
+title: $:/data/ExpenseReports/People
+type: application/json
+
+{
+    "Example Person": "true"
+}

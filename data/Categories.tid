@@ -1,0 +1,11 @@
+title: $:/data/ExpenseReports/Categories
+type: application/json
+
+{
+  "Food":"true",
+  "Hotel": "true",
+  "Car Rental": "true",
+  "Transport": "true",
+  "Electronics": "true",
+  "Supplies": "true"
+}

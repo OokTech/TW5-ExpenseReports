@@ -24,3 +24,30 @@ Add Category:
     category_name=''
   />
 </$button>
+
+<$select
+  tiddler='$:/temp/ExpenseReports/NewCategory'
+  field='remove_category'
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/Categories]indexes[]]'
+  >
+    <option>
+      <$view
+        field='title'
+      />
+    </option>
+  </$list>
+</$select>
+<$button>
+  Remove Category
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/Categories'
+    $index={{$:/temp/ExpenseReports/NewCategory!!remove_category}}
+  />
+</$button>

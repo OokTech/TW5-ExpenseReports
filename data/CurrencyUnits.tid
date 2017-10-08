@@ -1,0 +1,9 @@
+title: $:/data/ExpenseReports/CurrencyUnits
+type: application/json
+
+{
+  "$": "true",
+  "€": "true",
+  "£": "true",
+  "¥": "true"
+}

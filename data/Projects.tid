@@ -1,0 +1,8 @@
+project_name:
+tags:
+title: $:/data/ExpenseReports/Projects
+type: application/json
+
+{
+    "Example Project": "true"
+}

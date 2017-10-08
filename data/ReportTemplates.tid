@@ -1,0 +1,7 @@
+tags:
+title: $:/data/ExpenseReports/ReportTemplates
+type: application/json
+
+{
+  "$:/plugins/OokTech/ExpenseReports/templates/SimpleReportTemplate": "Default Template"
+}

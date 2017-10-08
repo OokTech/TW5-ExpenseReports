@@ -1,5 +1,5 @@
 caption: Build Report
-tags: 
+tags:
 title: $:/plugins/OokTech/ExpenseReports/BuildReport
 type: text/vnd.tiddlywiki
 
@@ -309,11 +309,20 @@ Template:
                     This button creates a static version of the current report
                     and saves it as its own tiddler.
                   -->
+                  <$edit-text
+                    tiddler='$:/temp/ExpenseReports/NewReport'
+                    field='new_title'
+                    class='tc-edit-texteditor'
+                  />
                   <$button>
                     Save Report
                       <$action-setfield
-                        $tiddler=TestOutput
+                        $tiddler={{$:/temp/ExpenseReports/NewReport!!new_title}}
                         text=<<ReportContent>>
+                      />
+                      <$action-setfield
+                        $tiddler='$:/temp/ExpenseReports/NewReport'
+                        new_title=''
                       />
                   </$button>
                 </$wikify>

@@ -24,3 +24,30 @@ Add Payment Method:
     method_name=''
   />
 </$button>
+
+<$select
+  tiddler='$:/temp/ExpenseReports/NewPaymentMethod'
+  field='remove_method'
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/PaymentMethods]indexes[]]'
+  >
+    <option>
+      <$view
+        field='title'
+      />
+    </option>
+  </$list>
+</$select>
+<$button>
+  Remove Payment Method
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/PaymentMethods'
+    $index={{$:/temp/ExpenseReports/NewPaymentMethod!!remove_method}}
+  />
+</$button>

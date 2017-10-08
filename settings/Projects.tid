@@ -24,3 +24,30 @@ Add Project:
     project_name=''
   />
 </$button>
+
+<$select
+  tiddler='$:/temp/ExpenseReports/NewProject'
+  field='remove_project'
+>
+  <option
+    value=''
+  >
+    --
+  </option>
+  <$list
+    filter='[[$:/data/ExpenseReports/Projects]indexes[]]'
+  >
+    <option>
+      <$view
+        field='title'
+      />
+    </option>
+  </$list>
+</$select>
+<$button>
+  Remove Project
+  <$action-setfield
+    $tiddler='$:/data/ExpenseReports/Projects'
+    $index={{$:/temp/ExpenseReports/NewProject!!remove_project}}
+  />
+</$button>

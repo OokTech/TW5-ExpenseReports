@@ -1,0 +1,9 @@
+title: $:/data/ExpenseReports/PaymentMethods
+type: application/json
+
+{
+"Company Credit Card": "true",
+"Company Check": "true",
+"Personal Credit Card": "true",
+"Personal Money": "true"
+}
