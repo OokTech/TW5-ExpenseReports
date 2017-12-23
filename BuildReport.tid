@@ -340,6 +340,7 @@ Template:
                   $filter=<<FILTER>>
                   $sumfield='amount'
                   $storefield=total
+                  $decimals=2
                 />
               </$button>
             </$set>
